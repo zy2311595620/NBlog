@@ -17,8 +17,9 @@
         <link rel="stylesheet" href="styles/prettify.css"/>
 		<!-- Ueditor编辑器CSS -->
 		<link href="styles/umeditor.min.css" type="text/css" rel="stylesheet">
-		
-   </head>
+		<script src="scripts/book.js"></script>
+
+	</head>
     <body class="animated fadeIn">
         <header class="header">
             <div class="header-brand">
@@ -292,10 +293,23 @@
         <script type="text/javascript" src="scripts/jquery.min.js"></script>
 		<script type="text/javascript"src="scripts/basevalue.js"></script>
 		<script type="text/javascript" src="scripts/cookie_util.js"></script>
+		<script type="text/javascript" src="scripts/alert.js"></script>
 		<script type="text/javascript" src="scripts/book.js"></script>
 		<script type="text/javascript" src="scripts/note.js"></script>
-		<script type="text/javascript" src="scripts/alert.js"></script>
-	
+		<script>
+			$(function () {
+				//加载用户笔记本列表
+				locadUserBooks();
+				//给笔记本li元素绑定单击事件(动态绑定)
+				$("#book_ul").on("click","li",loadBookNote);
+
+
+
+			})
+		</script>
+
+
+
 		<!-- Bootstrap框架JS -->
         <script src="scripts/bootstrap.min.js"></script>
         <script src="scripts/js-prototype.js"></script>       

@@ -14,4 +14,5 @@ public interface UserDao {
            "cn_user_nick) values(#{cn_user_id},#{cn_user_name}," +
            "#{cn_user_password},#{cn_user_nick})")
     void save(User user);
+
 }
