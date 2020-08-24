@@ -302,10 +302,21 @@
 				locadUserBooks();
 				//给笔记本li元素绑定单击事件(动态绑定)
 				$("#book_ul").on("click","li",loadBookNote);
-
-
-
+				//给笔记li绑定单击事件
+				$("#note_ul").on("click","li",loadNote);
+				//给保存笔记按钮绑定单击事件
+				$("#save_note").click(updateNote);
+				//关闭对话框
+				$("#can").on("click",".cancle,.close",closeAlertWindow);
 			})
+
+
+
+
+
+
+
+
 		</script>
 
 

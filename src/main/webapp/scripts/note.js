@@ -65,4 +65,78 @@ function createNoteLi(noteId,noteTitle) {
     $li.data("noteId",noteId);
     //将li袁元素添加到笔记列表中
     $("#note_ul").append($li);
+
+}
+//根据笔记id加载笔记信息
+function loadNote() {
+//获取请求参数
+// 设计笔记选中效果
+    $("#note_ul a").removeClass("checked")
+    $(this).find("a").addClass("checked");
+    var noteId=$(this).data("noteId");
+
+// 参数格式校验
+
+// 发送ajax
+    $.ajax({
+        url: base_path+"/note/load.do",
+        data: {"noteId":noteId},
+        type: "post",
+        dataType: "json",
+        success:function (result) {
+            if (result.status == 0){
+                //获取标题
+                var title = result.data.cn_note_title;
+                //获取内容
+                var body = result.data.cn_note_body;
+                //设置带编辑区
+                $("#input_note_title").val(title);
+                um.setContent(body);
+
+            }
+        },
+        error:function () {
+            alert("加载异常");
+        }
+    });
+}
+//保存笔记
+function updateNote() {
+   var title=  $("#input_note_title").val();
+   var body=um.getContent();
+   var $li = $("#note_ul a.checked").parent();
+   var noteId = $li.data("noteId");
+
+    // 清空
+    $("#note_title_span").html();
+   if (title == ""){
+       $("#note_title_span").html("<font color='red'>标题不能为空</font>");
+   }else if ($li.length == 0){
+       alert("请选择要保存笔记");
+   }else{
+       $.ajax({
+           url:base_path+"/note/update.do",
+            data:{"noteId":noteId,"title":title,"body":body},
+           dataType:"json",
+           type:"post",
+           success:function (result) {
+                if (result.status == 0){
+                    var sli="";
+                    sli+='<i class="fa fa-file-text-o" title="online" ' +
+                        'rel="tooltip-bottom"></i> '+title+'<button type="button" class="btn btn-default btn-xs' +
+                        ' btn_position btn_slide_down"><i class="fa fa-chevron-down">' +
+                        '</i></button>';
+                    //将选中li元素a内容替换
+                    $li.find("a").html(sli);
+                    alert(result.msg);
+
+
+                }
+           },
+           error:function () {
+               alert("修改异常");
+           }
+       });
+   }
+
 }

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-public class LoadNotesController {
+public class LoadNoteController {
     @Resource
     private NoteService noteService;
-    @RequestMapping("/note/loadnotes.do")
-    public NoteResult execute(String bookId){
-        return noteService.loadNotes(bookId);
-    }
+    @RequestMapping("/note/load.do")
+    public NoteResult execute(String noteId){
 
+        return noteService.loadnote(noteId);
+    }
 }
