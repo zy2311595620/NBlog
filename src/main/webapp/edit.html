@@ -289,7 +289,7 @@
 				$('#myEditor').width(width-20);
 			};
 		</script>
-		
+
         <script type="text/javascript" src="scripts/jquery.min.js"></script>
 		<script type="text/javascript"src="scripts/basevalue.js"></script>
 		<script type="text/javascript" src="scripts/cookie_util.js"></script>
@@ -308,6 +308,19 @@
 				$("#save_note").click(updateNote);
 				//关闭对话框
 				$("#can").on("click",".cancle,.close",closeAlertWindow);
+				//弹出创建笔记本对话框
+				$("#add_notebook").click(alertAddBookWindow);
+				//新建笔记本创建按钮绑定事件
+				$("#can").on("click","#sure_addbook",addBook);
+				
+				//弹出创建笔记对话框
+				$("#add_note").click(alertAddNoteWindow);
+				$("#can").on("click","#sure_addnote",addNote);
+
+
+
+
+
 			})
 
 

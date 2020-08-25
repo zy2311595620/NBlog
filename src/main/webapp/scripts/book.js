@@ -50,3 +50,41 @@ function createBookLi(bookId,bookName) {
     //将li元素添加到ul列表中
     $("#book_ul").append($li);
 }
+
+//创建笔记本
+function addBook() {
+    var userId= getCookie("uid");
+    var name = $("#input_notebook").val().trim();
+
+    var ok=true;
+    if (userId == null){
+        ok = false;
+        window.location.href="log_in.html";
+
+    }
+    if (name == ""){
+        ok = false;
+        $("#notebook_span").html("笔记本名为空");
+    }
+    if (ok){
+        $.ajax({
+            url:base_path+"/book/add.do",
+            type: "post",
+            data: {"userId":userId,"name":name},
+            dataType: "json",
+            success:function (result) {
+                if (result.status == 0){
+                    closeAlertWindow();
+                    var bookId = result.data.cn_notebook_id;
+                    var bookName = result.data.cn_notebook_name;
+                    createBookLi(bookId,bookName);
+                    alert(result.msg);
+                }
+            },
+            error:function () {
+                alert("创建异常");
+            }
+        });
+
+    }
+}

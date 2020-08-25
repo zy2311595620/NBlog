@@ -3,10 +3,12 @@ package com.zzcedu.service;
 import com.zzcedu.dao.NoteDao;
 import com.zzcedu.entity.Note;
 import com.zzcedu.util.NoteResult;
+import com.zzcedu.util.NoteUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.SQLOutput;
+
+
 import java.util.List;
 
 @Service
@@ -56,6 +58,24 @@ public class NoteServiceImpl implements NoteService{
         }
 
         return rs;
+    }
+
+    @Override
+    public NoteResult save(String bookId, String title,String userId) {
+        NoteResult noteResult=new NoteResult();
+        Note note = new Note();
+
+        note.setCn_note_id(NoteUtil.createId());
+        note.setCn_notebook_id(bookId);
+        note.setCn_user_id(userId);
+        note.setCn_note_title(title);
+        note.setCn_note_last_modify_time(System.currentTimeMillis());
+        note.setCn_note_create_time(System.currentTimeMillis());
+        noteDao.save(note);
+        noteResult.setStatus(0);
+        noteResult.setMsg("创建成功");
+        noteResult.setData(note);
+        return noteResult;
     }
 
 
