@@ -176,3 +176,71 @@ function addNote() {
         });
     }
 }
+//显示笔记菜单
+function popNoteMenue() {
+    //隐藏菜单
+    $("#note_ul div").hide();
+    //获取笔记菜单
+    var $menus = $(this).parent().next();
+    $menus.slideDown(1000);
+    $("#note_ul a").removeClass();
+    $("#this").parent().addClass("checked");
+    return false;
+}
+//隐藏菜单
+function hideBoteMenu() {
+    $("#note_ul div").hide();
+
+}
+//删除笔记
+function delNote() {
+
+    var $li = $("#note_ul a.checked").parent();
+    //这是bookId
+    var noteId = $li.data("noteId");
+
+
+        $.ajax({
+            url:base_path+"/note/delete.do",
+            dataType: "json",
+            data:{"noteId":noteId},
+            type:"post",
+            success:function (result) {
+
+                    closeAlertWindow();
+                    $li.remove();
+                    alert(result.msg);
+
+            },
+            error:function () {
+                alert("删除异常");
+            }
+        });
+
+}
+//移动笔记
+function moveNote() {
+    var $li = $("#note_ul a.checked").parent();
+    var noteId = $li.data("noteId");
+    var bookId = $("#moveSelect").val();
+
+    $.ajax({
+       url:base_path+"/note/move.do",
+       data:{"noteId":noteId,"bookId":bookId},
+       dataType:"json",
+       type:"post",
+        success:function (result) {
+           closeAlertWindow();
+            $li.remove();
+            alert(result.msg);
+
+        },
+        error:function () {
+            alert("移动异常")
+        }
+    });
+
+
+
+}
+

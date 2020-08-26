@@ -3,6 +3,7 @@ package com.zzcedu.service;
 import com.zzcedu.dao.BookDao;
 import com.zzcedu.entity.Book;
 
+import com.zzcedu.entity.Note;
 import com.zzcedu.util.NoteResult;
 import com.zzcedu.util.NoteUtil;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,17 @@ public class BookServiceImpl implements BookService{
         return noteResult;
     }
 
-
-
-
-
+    @Override
+    public NoteResult del(String bookId) {
+        NoteResult noteResult = new NoteResult();
+        Note not=new Note();
+        not.setCn_note_id(bookId);
+        bookDao.del(bookId);
+        noteResult.setStatus(0);
+        noteResult.setMsg("删除成功");
+        noteResult.setData(not);
+        return noteResult;
+    }
 
 
 }
