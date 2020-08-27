@@ -6,9 +6,7 @@ public class Share {
     private String cn_share_body;
     private String cn_note_id;
 
-    public String getCn_share_id(String id) {
-        return cn_share_id;
-    }
+
 
     public void setCn_share_id(String cn_share_id) {
         this.cn_share_id = cn_share_id;
@@ -36,5 +34,9 @@ public class Share {
 
     public void setCn_note_id(String cn_note_id) {
         this.cn_note_id = cn_note_id;
+    }
+
+    public String getCn_share_id() {
+        return cn_share_id;
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Transactional
 @Service
 public class ShareServiceImpl implements ShareService{
@@ -39,6 +41,40 @@ public class ShareServiceImpl implements ShareService{
         shareDao.save(share);
         noteResult.setStatus(0);
         noteResult.setMsg("分享成功");
+        return noteResult;
+    }
+
+    @Override
+    public NoteResult searchShareNote(String keyword, Integer page) {
+       NoteResult noteResult=new NoteResult();
+       String title = "%";
+
+       if (keyword != null && !"".equals(keyword)){
+           title = "%"+keyword+"%";
+       }
+
+       if (page < 1){
+           page = 1;
+       }
+       int begin = (page-1)*5;
+        List<Share> shareList= shareDao.fingLikeTitle(title,begin);
+       noteResult.setStatus(0);
+       noteResult.setMsg("查询成功");
+       noteResult.setData(shareList);
+        return noteResult;
+    }
+
+    @Override
+    public NoteResult findByShareId(String shareId) {
+        NoteResult noteResult = new NoteResult();
+        Share share = new Share();
+
+        share.setCn_share_id(shareId);
+
+        Share byShareId = shareDao.findByShareId(share);
+        noteResult.setStatus(0);
+        noteResult.setMsg("加载成功");
+        noteResult.setData(byShareId);
         return noteResult;
     }
 }

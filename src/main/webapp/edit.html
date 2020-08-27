@@ -298,6 +298,8 @@
 		<script type="text/javascript" src="scripts/note.js"></script>
 		<script>
 			$(function () {
+				var keyword = "";
+				var page = 1;
 				//加载用户笔记本列表
 				locadUserBooks();
 				//给笔记本li元素绑定单击事件(动态绑定)
@@ -328,7 +330,36 @@
 
 				//移动绑定单击事件
 				$("#note_ul").on("click",".btn_move",alertMoveNoteWindow);
-				$("#can").on("click","#sure_movenote",moveNote);
+				$(+"#can").on("click","#sure_movenote",moveNote);
+				//分享笔记
+				$("#can").on("click","#sure_share",shareNote);
+				$("#note_ul").on("click",".btn_share",alertShareNoteWindow);
+
+				//搜索
+				$("#search_note").keydown(function (event) {
+						var code = event.keyCode;
+						if (code == 13){
+							//清空分享笔记列表
+							$("#pc_part_6 ul").empty();
+
+							$("#pc_part_2").hide();
+							$("#pc_part_6").show();
+							$("#pc_part_4").hide();
+							$("#pc_part_7").hide();
+							$("#pc_part_8").hide();
+							keyword = $("#search_note").val().trim();
+							page = 1;
+							searchSharePage(keyword,page);
+						}
+
+				});
+				$("#pc_part_6 ul").on("click","li",shareNotes);
+				//更多按钮
+				$("#more_note").click(function () {
+					page = page+1;
+					searchSharePage(keyword,page);
+
+ 				});
 			})
 
 

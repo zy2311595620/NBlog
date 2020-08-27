@@ -53,6 +53,13 @@ function alertAddBookWindow(){
 		"alert/alert_notebook.html");
 	$(".opacity_bg").show();
 };
+//分享
+function alertShareNoteWindow(){
+	//弹出对话框alert_share.html
+	$("#can").load(
+		"alert/alert_share.html");
+	$(".opacity_bg").show();
+};
 //关闭对话框
 function closeAlertWindow(){
 	//关闭操作
